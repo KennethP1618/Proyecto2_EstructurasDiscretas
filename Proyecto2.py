@@ -15,3 +15,13 @@ def deteccionIntrusos():
     #Salida
     print(f"IPs en riesgo alto: {len(intruso)}")
     print(intruso)
+#Módulo Anomalía de seguridad
+def anomaliaSeguridad():
+    anomaly = (listaNegra & vpn_autorizado) - servidorCritico
+    print(f"Anomalías detectadas: {len(anomaly)}")
+    #En caso de no detectar anomalías
+    if (anomaly == set()):
+        print("Anomlaías no detectadas.")
+    #Anomalías encontradas
+    else:
+        print(anomaly)
