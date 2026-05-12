@@ -15,16 +15,18 @@ def deteccionIntrusos():
     #Salida
     print(f"IPs en riesgo alto: {len(intruso)}")
     print(intruso)
+    return intruso
 #Módulo Anomalía de seguridad
 def anomaliaSeguridad():
     anomaly = (listaNegra & vpn_autorizado) - servidorCritico
     print(f"Anomalías detectadas: {len(anomaly)}")
     #En caso de no detectar anomalías
     if (anomaly == set()):
-        print("Anomlaías no detectadas.")
+        print("Anomalías no detectadas.")
     #Anomalías encontradas
     else:
         print(anomaly)
+        return anomaly
 def accesoNoAutorizado():
     no_autorizado= servidorCritico - vpn_autorizado
     print("\n [1]Acceso no autorizado")
@@ -32,16 +34,32 @@ def accesoNoAutorizado():
     print(no_autorizado)
     return no_autorizado
 def monitoreoGlobal():
+    total= servidorCritico | listaNegra | vpn_autorizado
     print("\n [3] Monitoreo Global")
     print(f" Total Ips Detectadadas: {len(total)}")
     print(total)
     return total
 
-def riesgo_alto():
+def riesgo_alto(ip):
     return ip in listaNegra and ip in servidorCritico
 
 
 
 print("====INFORME DE VULNERABILIDAES DE RED=====")
+
+intrusos=deteccionIntrusos()
+anomalias=anomaliaSeguridad()
+no_autorizados=accesoNoAutorizado()
+total=monitoreoGlobal()
+
+print("\n [4] Evaluación De Riesgo")
+print(f"Total de Ips detectadas: {len(total)}")
+print(f"Total de Ips en riesgo ALto: {len(intrusos)}")
+print(f"Ips fuera de vpn: {len(no_autorizados)}")
+
+
+ip_prueba="10.0.0.51"
+print(f"\n La Ip {ip_prueba} tiene riesgo alto? {riesgo_alto(ip_prueba)}")
+
 
 
