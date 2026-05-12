@@ -66,3 +66,48 @@ def monitoreoGlobal():
     for union in total:
         print(union)
     print("*" * 80)
+#Main
+#Menú
+flag = True
+while(flag):
+    os.system("cls")
+    print("==== INFORME DE VULNERABILIDAES DE RED=====")
+    print("Escoja la opción a ejecutar:\n" \
+    "1. Detección de intrusos\n" \
+    "2. Acceso no autorizado\n" \
+    "3. Monitoreo global\n" \
+    "4. Anomalía de seguridad\n" \
+    "5. Ver informe completo\n" \
+    "6. Descargar informa completo\n" \
+    "7. Salir\n")
+    opcion = int(input("Ingrese una opción --> "))
+    #Opciones
+    if (opcion == 1):
+        os.system("cls")
+        deteccionIntrusos()
+    elif (opcion == 2):
+        os.system("cls")
+        accesoNoAutorizado()
+    elif (opcion == 3):
+        os.system("cls")
+        monitoreoGlobal()
+    elif (opcion == 4):
+        os.system("cls")
+        anomaliaSeguridad()
+    elif (opcion == 5):
+        os.system("cls")
+        monitoreoGlobal()
+    elif (opcion == 6):
+        os.system("cls")
+        print("TRABAJO EN PROCESO...")
+    elif(opcion == 7):
+        flag = False
+    else:
+        print("SE HA INGRESADO UN VALOR NULO. INTÉNTELO NUEVAMENTE...")
+    #En caso de realizar otras operaciones
+    print("¿DESEA HACER OTRAS OPERACIONES?")
+    repetir = int(input("1. SI\n2. NO\nIngrese una opción --> "))
+    if (repetir == 2):
+        flag = False
+os.system("cls")
+print("PROGRAMA FINALIZADO...")
