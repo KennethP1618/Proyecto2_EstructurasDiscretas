@@ -25,3 +25,23 @@ def anomaliaSeguridad():
     #Anomalías encontradas
     else:
         print(anomaly)
+def accesoNoAutorizado():
+    no_autorizado= servidorCritico - vpn_autorizado
+    print("\n [1]Acceso no autorizado")
+    print(f"IPs fuera de vpn {len(no_autorizado)}")
+    print(no_autorizado)
+    return no_autorizado
+def monitoreoGlobal():
+    print("\n [3] Monitoreo Global")
+    print(f" Total Ips Detectadadas: {len(total)}")
+    print(total)
+    return total
+
+def riesgo_alto():
+    return ip in listaNegra and ip in servidorCritico
+
+
+
+print("====INFORME DE VULNERABILIDAES DE RED=====")
+
+
