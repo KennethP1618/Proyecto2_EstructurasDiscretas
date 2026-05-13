@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 #Direcciones IP
 #VPN(Conexiones autorizadas)
 vpn_autorizado = {"192.168.1.10", "192.168.1.11", "192.168.1.12",
@@ -72,6 +73,64 @@ def FuncionError():
     os.system("cls")
     print("EL VALOR INGRESADO PUEDE CONTENER ERRORES, PORFAVOR, COMPRUEBE NUEVAMENTE.")
     input("Presione ENTER para continuar...")
+#Módulo de descarga del informe completo
+def descargarInforme():
+    # Operaciones
+    intruso       = servidorCritico & listaNegra
+    anomaly       = (listaNegra & vpn_autorizado) - servidorCritico
+    no_autorizado = servidorCritico - vpn_autorizado
+    total         = servidorCritico | listaNegra | vpn_autorizado
+
+    # Ruta a Descargas
+    fecha = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    ruta  = os.path.join(os.path.expanduser("~"), "Downloads", f"informe_{fecha}.txt")
+
+    with open(ruta, "w", encoding="utf-8") as f:
+        f.write("==== INFORME DE VULNERABILIDADES DE RED ====\n")
+        f.write(f"Generado: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+
+        # Detección de intrusos
+        f.write("*" * 80 + "\n")
+        f.write("INTERSECCIÓN\n")
+        f.write(f"IPs en riesgo alto: {len(intruso)}\n")
+        f.write("Lista de IPs detectadas:\n")
+        for ip in intruso:
+            f.write(f"  {ip}\n")
+        f.write("*" * 80 + "\n\n")
+
+        # Acceso no autorizado
+        f.write("*" * 80 + "\n")
+        f.write("DIFERENCIA\n")
+        f.write("Acceso no autorizado\n")
+        f.write(f"IPs fuera de VPN: {len(no_autorizado)}\n")
+        f.write("Lista de IPs detectadas:\n")
+        for ip in no_autorizado:
+            f.write(f"  {ip}\n")
+        f.write("*" * 80 + "\n\n")
+
+        # Monitoreo global
+        f.write("*" * 80 + "\n")
+        f.write("UNIÓN\n")
+        f.write("Monitoreo Global\n")
+        f.write(f"Total IPs detectadas: {len(total)}\n")
+        f.write("Lista de IPs detectadas:\n")
+        for ip in total:
+            f.write(f"  {ip}\n")
+        f.write("*" * 80 + "\n\n")
+
+        # Anomalía de seguridad
+        f.write("*" * 80 + "\n")
+        f.write("DIFERENCIA SIMÉTRICA\n")
+        f.write(f"Anomalías detectadas: {len(anomaly)}\n")
+        if anomaly == set():
+            f.write("Anomalías no detectadas.\n")
+        else:
+            f.write("Lista de IPs detectadas:\n")
+            for ip in anomaly:
+                f.write(f"  {ip}\n")
+        f.write("*" * 80 + "\n")
+
+    print(f"Informe descargado en:\n{ruta}")
 #Main
 #Variables para los bucles
 flag = True
@@ -122,7 +181,7 @@ while(flag):
     #Manejo de errores
     elif (opcion == 6):
         os.system("cls")
-        print("TRABAJO EN PROCESO...")
+        descargarInforme()
     #Salida
     elif(opcion == 7):
         flag = False
