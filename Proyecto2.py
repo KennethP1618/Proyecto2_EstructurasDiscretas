@@ -66,48 +66,85 @@ def monitoreoGlobal():
     for union in total:
         print(union)
     print("*" * 80)
-#Main
-#Menú
-flag = True
-while(flag):
+    print("\n")
+#Módulo de mensaje de error
+def FuncionError():
     os.system("cls")
-    print("==== INFORME DE VULNERABILIDAES DE RED=====")
-    print("Escoja la opción a ejecutar:\n" \
-    "1. Detección de intrusos\n" \
-    "2. Acceso no autorizado\n" \
-    "3. Monitoreo global\n" \
-    "4. Anomalía de seguridad\n" \
-    "5. Ver informe completo\n" \
-    "6. Descargar informa completo\n" \
-    "7. Salir\n")
-    opcion = int(input("Ingrese una opción --> "))
-    #Opciones
+    print("EL VALOR INGRESADO PUEDE CONTENER ERRORES, PORFAVOR, COMPRUEBE NUEVAMENTE.")
+    input("Presione ENTER para continuar...")
+#Main
+#Variables para los bucles
+flag = True
+flag_opciones = True
+flag_repetir = True
+#Menú
+while(flag):
+    #Control de opciones
+    while flag_opciones:
+        try:
+            os.system("cls")
+            print("==== INFORME DE VULNERABILIDAES DE RED=====")
+            print("Escoja la opción a ejecutar:\n" \
+            "1. Detección de intrusos\n" \
+            "2. Acceso no autorizado\n" \
+            "3. Listado de todas las IPs\n" \
+            "4. Anomalía de seguridad\n" \
+            "5. Ver informe completo\n" \
+            "6. Descargar informe completo\n" \
+            "7. Salir\n")
+            opcion = int(input("Ingrese una opción --> "))
+            flag_opciones = False
+        except:
+            FuncionError()
+    #Intersección
     if (opcion == 1):
         os.system("cls")
         deteccionIntrusos()
+    #Diferencia
     elif (opcion == 2):
         os.system("cls")
         accesoNoAutorizado()
+    #Unión
     elif (opcion == 3):
         os.system("cls")
         monitoreoGlobal()
+    #Diferencia simétrica
     elif (opcion == 4):
         os.system("cls")
         anomaliaSeguridad()
+    #Mostrar todas las operaciones
     elif (opcion == 5):
         os.system("cls")
+        deteccionIntrusos()
+        accesoNoAutorizado()
         monitoreoGlobal()
+        anomaliaSeguridad()
+    #Manejo de errores
     elif (opcion == 6):
         os.system("cls")
         print("TRABAJO EN PROCESO...")
+    #Salida
     elif(opcion == 7):
         flag = False
+        break
+    #Manejo de errores
     else:
-        print("SE HA INGRESADO UN VALOR NULO. INTÉNTELO NUEVAMENTE...")
+        FuncionError()
     #En caso de realizar otras operaciones
-    print("¿DESEA HACER OTRAS OPERACIONES?")
-    repetir = int(input("1. SI\n2. NO\nIngrese una opción --> "))
-    if (repetir == 2):
-        flag = False
+    flag_repetir = True
+    while(flag_repetir):
+        print("¿DESEA HACER OTRAS OPERACIONES?")
+        try:
+            repetir = int(input("1. SI\n2. NO\nIngrese una opción --> "))
+            if (repetir == 2):
+                flag = False
+                flag_repetir = False
+            elif (repetir == 1):
+                flag_opciones = True
+                flag_repetir = False
+            else:
+                FuncionError()
+        except:
+            FuncionError()
 os.system("cls")
 print("PROGRAMA FINALIZADO...")
